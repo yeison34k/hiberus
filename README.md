@@ -1,6 +1,13 @@
 # hiberus
  The main goal of the test it's to simulate a tyipical checkout operation in an ecommerce solution
 
+
+## postman
+import postman:
+
+https://github.com/yeison34k/hiberus/blob/master/postman/Hiberus.postman_collection.json
+
+
 ## payment api
 ### swagger
 http://localhost:8181/swagger-ui.html
@@ -58,38 +65,38 @@ run docker order
 end point: http://localhost:8181/payment  
 method: POST
 body:
-`{`
-  `"bill": {`
-    `"clientId": "string",`
-    `"clientIdentity": "string",`
-    `"clientName": "string",`
-    `"date": "2020-06-29T22:24:50.738Z",`
-    `"direction": "string",`
-    `"id": "string",`
-    `"numberBill": "string",`
-    `"paymentMethod": "string",`
-    `"phone": "string",`
-    `"products": [`
-      `{`
-        `"clientId": "string",`
-        `"date": "2020-06-29T22:24:50.738Z",`
-        `"direction": "string",`
-        `"id": "string",`
-        `"products": [`
-          `null`
-        `]`
-      `}`
-    `],`
-    `"quantity": "string",`
-    `"total": 0`
-  `},`
-  `"order": {`
-    `"clientId": "string",`
-    `"date": "2020-06-29T22:24:50.738Z",`
-    `"direction": "string",`
-    `"id": "string",`
-    `"products": [`
-      `null`
-    `]`
-  `}`
-`}`
+```{
+  "bill": {
+    "clientId": "string",
+    "clientIdentity": "string",
+    "clientName": "string",
+    "date": "2020-06-29T22:24:50.738Z",
+    "direction": "string",
+    "id": "string",
+    "numberBill": "string",
+    "paymentMethod": "string",
+    "phone": "string",
+    "products": [
+      {
+        "clientId": "string",
+        "date": "2020-06-29T22:24:50.738Z",
+        "direction": "string",
+        "id": "string",
+        "products": [
+          null
+        ]
+      }
+    ],
+    "quantity": "string",
+    "total": 0
+  },
+  "order": {
+    "clientId": "string",
+    "date": "2020-06-29T22:24:50.738Z",
+    "direction": "string",
+    "id": "string",
+    "products": [
+      null
+    ]
+  }
+}```
