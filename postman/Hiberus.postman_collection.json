@@ -1,0 +1,38 @@
+{
+	"info": {
+		"_postman_id": "3ccc8782-10a1-4b19-9696-8b93cef5d81f",
+		"name": "Hiberus",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "pay-order",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"order\": {\r\n        \"clientId\": \"1\",\r\n        \"direction\": \"calle 43 # 11- 23\",\r\n        \"products\": [\r\n            {\r\n                \"id\": 1,\r\n                \"quantity\": 10,\r\n                \"cost\": 30.200\r\n            },\r\n            {\r\n                \"id\": 2,\r\n                \"quantity\": 2,\r\n                \"cost\": 10.300\r\n            }\r\n        ]\r\n    },\r\n    \"bill\" : {\r\n        \"phone\": \"3174568954\",\r\n        \"clientIdentity\": \"123938463\",\r\n        \"clientName\": \"yeison aristizabal\",\r\n        \"paymentMethod\": \"Eectivo\"\r\n    }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8181/payment",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8181",
+					"path": [
+						"payment"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}
