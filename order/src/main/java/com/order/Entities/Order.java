@@ -28,7 +28,7 @@ public class Order {
 	private String clientId;
 	
 	@ApiModelProperty(value = "the order's date")
-	private String date;
+	private Date date;
 	
 	@ApiModelProperty(value = "the order's direction")
 	private String direction;
@@ -38,7 +38,7 @@ public class Order {
 	
 	public Order() {}
 
-	public Order(String id, String clientId, String date, String direction, List<Product> products) {
+	public Order(String id, String clientId, Date date, String direction, List<Product> products) {
 		this.id = id;
 		this.clientId = clientId;
 		this.date = date;
