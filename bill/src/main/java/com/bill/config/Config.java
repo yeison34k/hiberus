@@ -1,4 +1,4 @@
-package com.order.config;
+package com.bill.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

@@ -1,4 +1,4 @@
-package com.order.Entities;
+package com.bill.Entities;
 
 import java.math.BigDecimal;
 import lombok.Data;

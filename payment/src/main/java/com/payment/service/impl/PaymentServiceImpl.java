@@ -74,5 +74,4 @@ public class PaymentServiceImpl implements PaymentService {
 	private Object generateBill(Order order) {
 		return "";
 	}
-
 }

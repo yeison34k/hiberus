@@ -1,4 +1,4 @@
-package com.order.Entities;
+package com.bill.Entities;
 
 import java.util.Date;
 import java.util.List;
@@ -17,7 +17,7 @@ import lombok.Data;
 @Data
 @Document(collection = "order")
 @ApiModel("Entity product")
-public class Order {
+public class Bill {
 	
 	@Id
 	@Field("_id")
@@ -36,9 +36,9 @@ public class Order {
 	@ApiModelProperty(value = "the order's products")
 	private List<Product> products;
 	
-	public Order() {}
+	public Bill() {}
 
-	public Order(String id, String clientId, Date date, String direction, List<Product> products) {
+	public Bill(String id, String clientId, Date date, String direction, List<Product> products) {
 		this.id = id;
 		this.clientId = clientId;
 		this.date = date;
