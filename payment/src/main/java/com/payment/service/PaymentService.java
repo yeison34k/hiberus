@@ -2,9 +2,9 @@ package com.payment.service;
 
 import java.util.Map;
 
-import com.payment.Entities.Order;
+import com.payment.Entities.OrderBillRequest;
 
 public interface PaymentService {
 
-	public Map payment(Order order);
+	public Map<String, Object> payment(OrderBillRequest order);
 }
