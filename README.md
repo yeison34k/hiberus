@@ -65,7 +65,8 @@ run docker order
 end point: http://localhost:8181/payment  
 method: POST
 body:
-```{
+```
+{
   "bill": {
     "clientId": "string",
     "clientIdentity": "string",
@@ -99,4 +100,5 @@ body:
       null
     ]
   }
-}```
+}
+```
