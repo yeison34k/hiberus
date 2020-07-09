@@ -1,5 +1,6 @@
 package com.payment.Entities;
 
+import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
@@ -10,8 +11,10 @@ import lombok.Data;
 
 @Data
 @ApiModel("Entity product")
-public class Order {
+public class Order implements Serializable{
 	
+	private static final long serialVersionUID = 3675755857379780020L;
+
 	@ApiModelProperty(value = "the order's id")
 	private String id;
 	

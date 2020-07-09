@@ -1,13 +1,15 @@
 package com.payment.Entities;
 
-import java.util.Date;
+import java.io.Serializable;
 
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
 @Data
-public class SendOrder {
-	
+public class SendOrder implements Serializable {
+
+	private static final long serialVersionUID = -4890865704053852497L;
+
 	private String id;
 
 	@ApiModelProperty(value = "the SendOrder's orden id")
@@ -18,10 +20,10 @@ public class SendOrder {
 
 	@ApiModelProperty(value = "the SendOrder's direction")
 	private String direction;
-	
-	public SendOrder() {	
+
+	public SendOrder() {
 	}
-	
+
 	public SendOrder(String id, String order, boolean send, String direction) {
 		this.id = id;
 		this.order = order;

@@ -23,12 +23,18 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.client.RestClientException;
 import org.springframework.web.client.RestTemplate;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.payment.Entities.Bill;
 import com.payment.Entities.Order;
 import com.payment.Entities.OrderBillRequest;
@@ -39,7 +45,10 @@ import io.swagger.annotations.ApiOperation;
 
 @Service
 public class PaymentServiceImpl implements PaymentService {
-
+	
+	@Autowired
+	private RestTemplate restTemplate; 
+	
 	private String url = CREATE_ORDER_URL;
 	private String url_send = CREAE_SEND_ORDER_URL;
 	private String url_bill = CREAE_BILL_ORDER_URL;
@@ -48,7 +57,6 @@ public class PaymentServiceImpl implements PaymentService {
 	@ApiOperation(value = "Generate bill and send order", notes = "Return Map with bill and send order")
 	public Map<String, Object> payment(OrderBillRequest orderBill) {
 		Map<String, Object> res = new HashMap<String, Object>();
-
 		Order createOrder = this.order(orderBill.getOrder());
 		res.put(ORDER, createOrder);
 		res.put(SEND, this.sendOrder(createOrder, true));
@@ -58,34 +66,25 @@ public class PaymentServiceImpl implements PaymentService {
 
 	@ApiOperation(value = "Call api order", notes = "Return order")
 	private Order order(Order order) {
-		RestTemplate restTemplate = new RestTemplate();
-
-		restTemplate = new RestTemplate();
 		HttpHeaders headers = new HttpHeaders();
-
 		headers.setContentType(MediaType.APPLICATION_JSON);
 		Map<String, Object> orderRequest = new HashMap<String, Object>();
-
+		
 		orderRequest.put(CLIENTID, order.getClientId());
 		orderRequest.put(DATE, new Date());
 		orderRequest.put(DIRECTION, order.getDirection());
 		orderRequest.put(PRODUCTS, order.getProducts());
-		ResponseEntity<Order> response = restTemplate.postForEntity(url, orderRequest, Order.class);
-
-		return response.getBody();
+		HttpEntity<Map<String, Object>> httpEntity = new HttpEntity<Map<String, Object>>(orderRequest, headers);
+		
+		ResponseEntity<Order> response = restTemplate.postForEntity(url, httpEntity, Order.class);
+		return  response.getBody();
 	}
 
 	@ApiOperation(value = "Call Api Send order", notes = "Return send order")
 	private SendOrder sendOrder(Order order, boolean send) {
-		RestTemplate restTemplate = new RestTemplate();
-
-		restTemplate = new RestTemplate();
-
 		HttpHeaders headers = new HttpHeaders();
 		headers.setContentType(MediaType.APPLICATION_JSON);
-
 		Map<String, Object> sendOrderRequest = new HashMap<String, Object>();
-
 		sendOrderRequest.put(DATE, new Date());
 		sendOrderRequest.put(ORDER, order.getId());
 		sendOrderRequest.put(SEND, send);
@@ -96,15 +95,11 @@ public class PaymentServiceImpl implements PaymentService {
 
 	@ApiOperation(value = "Call api Generate bill", notes = "Return bill")
 	private Object generateBill(Bill bill, Order order) {
-
-		RestTemplate restTemplate = new RestTemplate();
-
-		restTemplate = new RestTemplate();
 		HttpHeaders headers = new HttpHeaders();
-
 		headers.setContentType(MediaType.APPLICATION_JSON);
+		
 		Map<String, Object> billRequest = new HashMap<String, Object>();
-
+		
 		String numberBill = order.getId() + order.getClientId() + bill.getClientIdentity();
 
 		billRequest.put(DATE, new Date());
@@ -118,10 +113,12 @@ public class PaymentServiceImpl implements PaymentService {
 		billRequest.put(DATE, new Date());
 		billRequest.put(PRODUCTS, order.getProducts());
 		billRequest.put(QUANTITY, order.getProducts().stream().map(x -> x.getQuantity()).reduce(0, Integer::sum));
-		billRequest.put(TOTAL,
-				order.getProducts().stream().map(x -> x.getCost()).reduce(BigDecimal.ZERO, BigDecimal::add));
+		billRequest.put(TOTAL, order.getProducts().stream().map(x -> x.getCost()).reduce(BigDecimal.ZERO, BigDecimal::add));
 
-		ResponseEntity<Bill> response = restTemplate.postForEntity(url_bill, billRequest, Bill.class);
+		HttpEntity<Map<String, Object>> httpEntity = new HttpEntity<Map<String, Object>>(billRequest, headers);
+		
+		ResponseEntity<Bill> response = restTemplate.postForEntity(url_bill, httpEntity, Bill.class);
+		
 		return response.getBody();
 	}
 }

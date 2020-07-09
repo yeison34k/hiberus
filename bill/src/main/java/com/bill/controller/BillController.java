@@ -4,6 +4,8 @@ import java.util.List;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -26,19 +28,19 @@ public class BillController {
 	@Autowired
 	private BillService orderService;
 
-	@RequestMapping(value = "/orders", method = RequestMethod.GET)
+	@GetMapping(value = "/orders", produces = MediaType.APPLICATION_JSON_VALUE)
 	@ApiOperation(value = "Find all Bills", notes = "Return all Bills")
 	public List<Bill> getBills() {
 		return orderService.getBills();
 	}
 
-	@RequestMapping(value = "/order/{id}", method = RequestMethod.GET)
+	@GetMapping(value = "/order/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
 	@ApiOperation(value = "Find one Bill", notes = "Return Bill")
 	public Bill getOrder(@PathVariable Long id) {
 		return orderService.getBill(id).orElse(null);
 	}
 
-	@PostMapping(value = "/bill/create")
+	@PostMapping(value = "/bill/create", produces = MediaType.APPLICATION_JSON_VALUE)
 	@ApiOperation(value = "Create new Bill", notes = "Return Bill ")
 	public Bill createOrder(@RequestBody Bill bill) {
 		return orderService.createBill(bill);
