@@ -32,5 +32,18 @@ services:
       - order
       - logistic
       - bill
+  gateway-server:
+      image: gateway-server:v1
+      restart: always
+      networks:
+        - hiberus
+      ports:
+        - 8989:8989
+      depends_on: 
+      - eureka-server
+      - order
+      - logistic
+      - bill
+      - payment
 networks: 
   hiberus:
