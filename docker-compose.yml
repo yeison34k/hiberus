@@ -1,6 +1,36 @@
 version: '3'
 services:
-  web:
-    build: .\hiberus\bill
-    ports:
-     - "8080:80"
+  eureka-server:
+    image: eureka-server:v1
+    ports: 
+      - 8761:8761
+    networks: 
+      - hiberus
+    restart: always
+  bill:
+    image: bill:v1
+    restart: always
+    networks:
+      - hiberus
+  logistic:
+      image: logistic:v1
+      restart: always
+      networks:
+        - hiberus
+  order:
+      image: order:v1
+      restart: always
+      networks:
+        - hiberus
+  payment:
+      image: payment:v1
+      restart: always
+      networks:
+        - hiberus
+      depends_on: 
+      - eureka-server
+      - order
+      - logistic
+      - bill
+networks: 
+  hiberus:
