@@ -8,9 +8,6 @@ for the api documentation topics swagger is used with a basic configuration to w
 In pojo classes or entities, lombok was implemented to get / set handling
 In the payment endpoint additional fields were added for the invoice generation
 
-the use of Eureka or the like is omitted
-use of zuul server (ApiGetway) or similar is ignored
-
 docker is used for application deployment, applications can be accessed by container name
 
 ports other than 8080 are used in containers to avoid conflicts
@@ -27,20 +24,27 @@ Git (gitHub)
 Compas (Client Mongo)
 Docker (Linux Containers)
 
-
 ## postman
 import in your postman:
 
 https://github.com/yeison34k/hiberus/blob/master/postman/Hiberus.postman_collection.json
+
+![Alt text](https://github.com/yeison34k/hiberus/blob/master/steps/api-gateway.PNG "Title")
 
 
 #### create docker network
 
 `docker network create hiberus`
 
-## payment api
+## Zipkin
+http://localhost:9411/zipkin/
+
+![Alt text](https://github.com/yeison34k/hiberus/blob/master/steps/zipkin.PNG "Title")
+
+
+## build payment api
 ### swagger
-http://localhost:8181/swagger-ui.html
+http://localhost:8989/payment/swagger-ui.html
 
 #### run docker payment
 
@@ -48,21 +52,21 @@ http://localhost:8181/swagger-ui.html
 
 `docker build -t payment:v1 .`
 
-## order api
+## build order api
 ### swagger
-http://localhost:8086/swagger-ui.html
+http://localhost:8989/order/swagger-ui.html
 
-#### run docker order
+#### build docker order
 
 `mvn clean package`
 
 `docker build -t order:v1 .`
 
-## bill api
+## build bill api
 ### swagger 
-http://localhost:8092/swagger-ui.html
+http://localhost:8989/bill/swagger-ui.html
 
-#### run docker bill
+#### build docker bill
 
 `mvn clean package`
 
@@ -70,59 +74,61 @@ http://localhost:8092/swagger-ui.html
 
 ## logistic api
 ### swagger
-http://localhost:8091/swagger-ui.html
+http://localhost:8989/logistic/swagger-ui.html
 
-#### run docker order
+#### build docker logistic
 
 `mvn clean package`
 
 `docker build -t logistic:v1 .`
 
+#### build docker gateway-server
+
+`mvn clean package`
+
+`docker build -t gateway-server:v1 .`
+
+![Alt text](https://github.com/yeison34k/hiberus/blob/master/steps/api-gateway.PNG "Title")
+
+
 ## payment simulation
 
-end point: http://localhost:8181/payment  
+end point: http://localhost:8989/api/payment  
 method: POST
+
 body:
 
 ```
 {
-  "bill": {
-    "clientId": "string",
-    "clientIdentity": "string",
-    "clientName": "string",
-    "date": "2020-06-29T22:24:50.738Z",
-    "direction": "string",
-    "id": "string",
-    "numberBill": "string",
-    "paymentMethod": "string",
-    "phone": "string",
-    "products": [
-      {
-        "clientId": "string",
-        "date": "2020-06-29T22:24:50.738Z",
-        "direction": "string",
-        "id": "string",
+    "order": {
+        "clientId": "1",
+        "direction": "calle 43 # 11- 23",
         "products": [
-          null
+            {
+                "id": 1,
+                "quantity": 11,
+                "cost": 30.200
+            },
+            {
+                "id": 2,
+                "quantity": 2,
+                "cost": 10.300
+            }
         ]
-      }
-    ],
-    "quantity": "string",
-    "total": 0
-  },
-  "order": {
-    "clientId": "string",
-    "date": "2020-06-29T22:24:50.738Z",
-    "direction": "string",
-    "id": "string",
-    "products": [
-      null
-    ]
-  }
+    },
+    "bill" : {
+        "phone": "3174568954",
+        "clientIdentity": "123938463",
+        "clientName": "yeison aristizabal",
+        "paymentMethod": "Efectivo"
+    }
 }
 ```
 
 ##docker-composer: at the root of the project run
 
 `docker-compose up`
+
+![Alt text](https://github.com/yeison34k/hiberus/blob/master/steps/run-docker-compose.PNG "Running Containers")
+
 
