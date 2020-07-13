@@ -72,7 +72,7 @@ http://localhost:8989/bill/swagger-ui.html
 
 `docker build -t bill:v1 .`
 
-## logistic api
+## build logistic api
 ### swagger
 http://localhost:8989/logistic/swagger-ui.html
 
@@ -125,10 +125,16 @@ body:
 }
 ```
 
-##docker-composer: at the root of the project run
+## docker-composer: at the root of the project run
 
 `docker-compose up`
 
 ![Alt text](https://github.com/yeison34k/hiberus/blob/master/steps/run-docker-compose.PNG "Running Containers")
+
+
+## Eureka server
+
+![Alt text](https://github.com/yeison34k/hiberus/blob/master/steps/eureka.PNG "Running Containers")
+
 
 
