@@ -12,27 +12,33 @@ services:
     restart: always
     networks:
       - hiberus
+    depends_on: 
+        - eureka-server
   logistic:
       image: logistic:v1
       restart: always
       networks:
         - hiberus
+      depends_on: 
+          - eureka-server
   order:
       image: order:v1
       restart: always
       networks:
         - hiberus
+      depends_on: 
+          - eureka-server
   payment:
       image: payment:v1
       restart: always
       networks:
         - hiberus
       depends_on: 
-      - eureka-server
-      - order
-      - logistic
-      - bill
-  gateway-server:
+        - eureka-server
+        - order
+        - logistic
+        - bill
+  api-gateway:
       image: gateway-server:v1
       restart: always
       networks:
@@ -40,10 +46,17 @@ services:
       ports:
         - 8989:8989
       depends_on: 
-      - eureka-server
-      - order
-      - logistic
-      - bill
-      - payment
+        - eureka-server
+        - order
+        - logistic
+        - bill
+        - payment
+  zipkin:
+      image: openzipkin/zipkin:latest
+      restart: always
+      networks:
+        - hiberus
+      ports:
+        - 9411:9411
 networks: 
   hiberus:
