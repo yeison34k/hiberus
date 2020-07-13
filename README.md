@@ -14,22 +14,27 @@ ports other than 8080 are used in containers to avoid conflicts
 
 Development environment
 
-Java 8
-Maven
-Windows 10
-MongoDb (Service Atlas)
-Eclipse
-PostMan
-Git (gitHub)
-Compas (Client Mongo)
-Docker (Linux Containers)
+- Java 8
+- Maven
+- Windows 10
+- MongoDb (Service Atlas)
+- Eclipse
+- PostMan
+- Git (gitHub)
+- Compas (Client Mongo)
+- Docker (Linux Containers)
+- Zipkin
+- Zuul Server
+- Eureka Server
+- Swagger
+- docker-compose
 
 ## postman
 import in your postman:
 
 https://github.com/yeison34k/hiberus/blob/master/postman/Hiberus.postman_collection.json
 
-![Alt text](https://github.com/yeison34k/hiberus/blob/master/steps/api-gateway.PNG "Title")
+![Alt text](https://github.com/yeison34k/hiberus/blob/master/steps/api-gateway.PNG "api-gateway")
 
 
 #### create docker network
@@ -39,7 +44,7 @@ https://github.com/yeison34k/hiberus/blob/master/postman/Hiberus.postman_collect
 ## Zipkin
 http://localhost:9411/zipkin/
 
-![Alt text](https://github.com/yeison34k/hiberus/blob/master/steps/zipkin.PNG "Title")
+![Alt text](https://github.com/yeison34k/hiberus/blob/master/steps/zipkin.PNG "zipkin")
 
 
 ## build payment api
@@ -88,7 +93,7 @@ http://localhost:8989/logistic/swagger-ui.html
 
 `docker build -t gateway-server:v1 .`
 
-![Alt text](https://github.com/yeison34k/hiberus/blob/master/steps/api-gateway.PNG "Title")
+![Alt text](https://github.com/yeison34k/hiberus/blob/master/steps/api-gateway.PNG "gateway")
 
 
 ## payment simulation
@@ -96,7 +101,7 @@ http://localhost:8989/logistic/swagger-ui.html
 end point: http://localhost:8989/api/payment  
 method: POST
 
-body:
+# body:
 
 ```
 {
@@ -125,6 +130,62 @@ body:
 }
 ```
 
+# response: 
+
+```
+{
+    "bill": {
+        "id": "5f0c9e28ea7d4e210d541f59",
+        "numberBill": "5f0c9e1068570c65ea20af021123938463",
+        "clientId": "1",
+        "phone": "3174568954",
+        "direction": "calle 43 # 11- 23",
+        "clientIdentity": "123938463",
+        "clientName": "yeison aristizabal",
+        "quantity": "13",
+        "paymentMethod": "Efectivo",
+        "total": 40.500,
+        "date": "2020-07-13T17:47:07.706+00:00",
+        "products": [
+            {
+                "id": 1,
+                "quantity": 11,
+                "cost": 30.200
+            },
+            {
+                "id": 2,
+                "quantity": 2,
+                "cost": 10.300
+            }
+        ]
+    },
+    "send": {
+        "id": "5f0c9e1adaac45392a3ceb55",
+        "order": "5f0c9e1068570c65ea20af02",
+        "send": true,
+        "direction": "calle 43 # 11- 23"
+    },
+    "order": {
+        "id": "5f0c9e1068570c65ea20af02",
+        "clientId": "1",
+        "date": "2020-07-13T17:46:56.141+00:00",
+        "direction": "calle 43 # 11- 23",
+        "products": [
+            {
+                "id": 1,
+                "quantity": 11,
+                "cost": 30.200
+            },
+            {
+                "id": 2,
+                "quantity": 2,
+                "cost": 10.300
+            }
+        ]
+    }
+}
+```
+
 ## docker-composer: at the root of the project run
 
 `docker-compose up`
@@ -134,7 +195,9 @@ body:
 
 ## Eureka server
 
-![Alt text](https://github.com/yeison34k/hiberus/blob/master/steps/eureka.PNG "Running Containers")
+http://localhost:8761/
+
+![Alt text](https://github.com/yeison34k/hiberus/blob/master/steps/eureka.PNG "Eureka server")
 
 
 
