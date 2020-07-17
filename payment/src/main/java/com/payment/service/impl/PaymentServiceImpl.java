@@ -1,5 +1,6 @@
 package com.payment.service.impl;
 
+import static com.payment.consts.AppConsts.BILL;
 import static com.payment.consts.AppConsts.CLIENTID;
 import static com.payment.consts.AppConsts.CLIENT_IDENTITY;
 import static com.payment.consts.AppConsts.CLIENT_NAME;
@@ -16,7 +17,6 @@ import static com.payment.consts.AppConsts.PRODUCTS;
 import static com.payment.consts.AppConsts.QUANTITY;
 import static com.payment.consts.AppConsts.SEND;
 import static com.payment.consts.AppConsts.TOTAL;
-import static com.payment.consts.AppConsts.BILL;
 
 import java.math.BigDecimal;
 import java.util.Date;
@@ -29,12 +29,8 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.client.RestClientException;
 import org.springframework.web.client.RestTemplate;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.payment.Entities.Bill;
 import com.payment.Entities.Order;
 import com.payment.Entities.OrderBillRequest;

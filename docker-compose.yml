@@ -20,14 +20,14 @@ services:
       networks:
         - hiberus
       depends_on: 
-          - eureka-server
+        - eureka-server
   order:
       image: order:v1
       restart: always
       networks:
         - hiberus
       depends_on: 
-          - eureka-server
+        - eureka-server
   payment:
       image: payment:v1
       restart: always

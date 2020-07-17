@@ -1,83 +1,1 @@
-import 'package:flutter/material.dart';
-
-void main() => runApp(MyApp());
-
-class MyApp extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    final appTitle = 'Form Validation Demo';
-
-    return MaterialApp(
-      title: appTitle,
-      home: Scaffold(
-        appBar: AppBar(
-          title: Text(appTitle),
-        ),
-        body: MyCustomForm(),
-      ),
-    );
-  }
-}
-
-// Create a Form widget.
-class MyCustomForm extends StatefulWidget {
-  @override
-  MyCustomFormState createState() {
-    return MyCustomFormState();
-  }
-}
-
-// Create a corresponding State class.
-// This class holds data related to the form.
-class MyCustomFormState extends State<MyCustomForm> {
-  // Create a global key that uniquely identifies the Form widget
-  // and allows validation of the form.
-  //
-  // Note: This is a GlobalKey<FormState>,
-  // not a GlobalKey<MyCustomFormState>.
-  final _formKey = GlobalKey<FormState>();
-
-  @override
-  Widget build(BuildContext context) {
-    // Build a Form widget using the _formKey created above.
-    return Form(
-      key: _formKey,
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: <Widget>[
-          TextFormField(
-            decoration: InputDecoration(
-                border: InputBorder.none,
-            ),
-          ),
-          TextFormField(
-            decoration: InputDecoration(
-              border: InputBorder.none,
-            ),
-          ),
-          TextFormField(
-            decoration: InputDecoration(
-              border: InputBorder.none,
-            ),
-          ),
-
-          Padding(
-            padding: const EdgeInsets.symmetric(vertical: 16.0),
-            child: RaisedButton(
-              onPressed: () {
-                // Validate returns true if the form is valid, or false
-                // otherwise.
-                if (_formKey.currentState.validate()) {
-                  // If the form is valid, display a Snackbar.
-                  Scaffold.of(context)
-                      .showSnackBar(SnackBar(content: Text('Processing Data')));
-                }
-              },
-              child: Text('Submit'),
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-}
+import 'package:flutter/material.dart';void main() => runApp(MyApp());class MyApp extends StatelessWidget {    @override    Widget build(BuildContext context) {        final appTitle = 'Hiberus App';        return MaterialApp(            title: appTitle,            home: Scaffold(                appBar: AppBar(                    title: Text(appTitle),                ),                body: MyCustomForm(),            ),        );    }}class MyCustomForm extends StatefulWidget {    @override    MyCustomFormState createState() {        return MyCustomFormState();    }}class MyCustomFormState extends State<MyCustomForm> {    final _formKey = GlobalKey<FormState>();    var _currentSelectedValue = "Cash payment";    var textStyle = "";    final _currencies = [        "Cash payment",        "Credit card",    ];    List _products = [        {            "id": 1,            "name": "Calditos",            "cost": 10.340        },        {            "id": 2,            "name": "su carita",            "cost": 20.200        },        {            "id": 3,            "name": "mr choco ramo",            "cost": 40.500        }    ];    Map<String, dynamic> _product = {        "id": 3,        "name": "mr choco ramo",        "cost": 40.500    };    Form form() {        return  Form(            key: _formKey,            autovalidate: true,            child: ListView(                    children: <Widget>[                        TextFormField(                            decoration: const InputDecoration(                                icon: const Icon(Icons.vpn_key),                                hintText: 'Enter your client ID',                                labelText: 'Client ID',                            ),                        ),                        TextFormField(                            decoration: const InputDecoration(                                icon: const Icon(Icons.person),                                hintText: 'Enter your name',                                labelText: 'Name',                            ),                        ),                        TextFormField(                            decoration: const InputDecoration(                                icon: const Icon(Icons.verified_user),                                hintText: 'Enter your ID',                                labelText: 'Identity',                            ),                        ),                        TextFormField(                            decoration: const InputDecoration(                                icon: const Icon(Icons.directions),                                hintText: 'Enter your home direction',                                labelText: 'Direction',                            ),                            keyboardType: TextInputType.text,                        ),                        TextFormField(                            decoration: const InputDecoration(                                icon: const Icon(Icons.phone),                                hintText: 'Enter your phone',                                labelText: 'Phone',                            ),                            keyboardType: TextInputType.number,                        ),                        FormField<String>(                            builder: (FormFieldState<String> state) {                                return InputDecorator(                                    decoration: InputDecoration(                                        //labelStyle: TextStyle,                                        icon: const Icon(Icons.payment),                                        labelText: 'Payment method',                                        hintText: 'Enter your payment method',                                        errorStyle: TextStyle(color: Colors.redAccent, fontSize: 16.0),                                    ),                                    isEmpty: _currentSelectedValue == '',                                    child: DropdownButtonHideUnderline(                                        child: DropdownButton<String>(                                        hint: _currentSelectedValue == null ? Text('Dropdown') : Text(_currentSelectedValue),                                            isDense: true,                                            onChanged: (String newValue) {                                                setState(() {                                                    _currentSelectedValue = newValue;                                                    state.didChange(newValue);                                                });                                            },                                            items: _currencies.map((String value) {                                                return new DropdownMenuItem<String>(                                                    value: value,                                                    child: new Text(value),                                                );                                            }).toList(),                                        )                                    ),                                );                            },                        ),                        FormField(                            builder: (FormFieldState state) {                                return InputDecorator(                                    decoration: InputDecoration(                                        //labelStyle: TextStyle,                                        icon: const Icon(Icons.add_shopping_cart),                                        labelText: 'Add Products',                                        hintText: 'Enter your products',                                        errorStyle: TextStyle(color: Colors.redAccent, fontSize: 16.0),                                    ),                                    //isEmpty: _product == '',                                    child: DropdownButtonHideUnderline(                                        child: DropdownButton(                                            hint: _product["id"] == null ? Text('Dropdown') : Text("${_product["name"]} ${_product["cost"]}"),                                            isDense: true,                                            onChanged: (newValue) {                                                setState(() {                                                    _product = newValue;                                                    state.didChange(newValue);                                                });                                            },                                            items: _products.map((map) =>                                                DropdownMenuItem(                                                    child: Text("${map["name"]} ${map["cost"]}"),                                                    value: map,                                            ),                                            ).toList(),                                        )                                    ),                                );                            },                        ),                        Row(                            crossAxisAlignment: CrossAxisAlignment.center,                            children: <Widget>[                                Padding(                                    padding: EdgeInsets.all(50),                                    child: RaisedButton(                                        onPressed: () {                                            if (_formKey.currentState.validate()) {                                                Scaffold.of(context)                                                    .showSnackBar(SnackBar(content: Text('Processing Data')));                                            }                                        },                                        child: Text('Pagar'),                                    ),                                ),                                Padding(                                    padding: EdgeInsets.all(50),                                    child: RaisedButton(                                        onPressed: () {                                            if (_formKey.currentState.validate()) {                                                Scaffold.of(context)                                                    .showSnackBar(SnackBar(content: Text('Processing Data')));                                            }                                        },                                        child: Text('Cancelar'),                                    ),                                )                            ],                        )                    ],                ),        );    }    @override    Widget build(BuildContext context) {        // Build a Form widget using the _formKey created above.        return new SafeArea(            top: true,            bottom: true,            child: Padding(                padding: EdgeInsets.all(10),                child: form()            )        );    }}
