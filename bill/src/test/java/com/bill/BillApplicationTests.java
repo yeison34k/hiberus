@@ -7,7 +7,8 @@ import org.springframework.boot.test.context.SpringBootTest;
 class BillApplicationTests {
 
 	@Test
-	void contextLoads() {
+	public void main() {
+		BillApplication.main(new String[] {});
 	}
 
 }

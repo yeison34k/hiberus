@@ -55,12 +55,9 @@ public class Bill {
 	
 	@ApiModelProperty(value = "the Bill's products")
 	private List<Product> products;
-
-	public Bill() {}
 	
 	public Bill(String id, String numberBill, String clientId, String phone, String direction, String clientIdentity,
 			String clientName, String quantity, String paymentMethod, BigDecimal total, Date date, List<Product> products) {
-		super();
 		this.id = id;
 		this.numberBill = numberBill;
 		this.clientId = clientId;
