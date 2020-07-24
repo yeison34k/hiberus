@@ -3,6 +3,7 @@ import 'package:hiberusapp/components/categories.dart';
 import 'package:hiberusapp/components/item_card.dart';
 import 'package:hiberusapp/constants.dart';
 import 'package:hiberusapp/models/Product.dart';
+import 'package:hiberusapp/screens/details/detail_screen.dart';
 
 class Body extends StatelessWidget {
   @override
@@ -32,7 +33,10 @@ class Body extends StatelessWidget {
                             childAspectRatio: 0.75
                         ),
                         itemCount: products.length,
-                        itemBuilder: (context, index)  =>  ItemCard(product: products[index])
+                        itemBuilder: (context, index)  =>
+                            ItemCard(product: products[index], press: () {
+                                Navigator.push(context, MaterialPageRoute(builder: (context) => DetailScreen(product: products[index])));
+                            })
                     )
                 ),
             )
