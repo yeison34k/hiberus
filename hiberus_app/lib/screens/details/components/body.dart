@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hiberusapp/models/Product.dart';
+import 'package:hiberusapp/screens/details/components/product_title_with_image.dart';
 
 class Body extends StatelessWidget {
     final Product product;
@@ -17,21 +18,14 @@ class Body extends StatelessWidget {
                         child: Stack(
                             children: <Widget>[
                                 Container(
-                                    margin: EdgeInsets.only(top: size.height * 0.3),
+                                    margin: EdgeInsets.only(top: size.height * 0.4),
                                     height: 500,
                                     decoration: BoxDecoration(
                                         color: Colors.white,
                                         borderRadius: BorderRadius.only(topLeft: Radius.circular(24), topRight:  Radius.circular(24))
                                     ),
                                 ),
-                                Column(
-                                    children: <Widget>[
-                                        Text(
-                                            product.title,
-                                            style: TextStyle(color: Colors.white)
-                                        )
-                                    ],
-                                )
+                                ProductTitleWithImage(product: product)
                             ],
                         ),
                     )
@@ -39,4 +33,5 @@ class Body extends StatelessWidget {
             ),
         );
     }
+
 }
