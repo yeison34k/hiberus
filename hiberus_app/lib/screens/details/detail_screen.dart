@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:hiberusapp/screens/details/components/body.dart';
-import 'package:hiberusapp/constants.dart';
 import 'package:hiberusapp/models/Product.dart';
 
 class DetailScreen extends StatelessWidget {

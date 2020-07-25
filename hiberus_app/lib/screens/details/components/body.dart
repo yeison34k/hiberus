@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:hiberusapp/constants.dart';
 import 'package:hiberusapp/models/Product.dart';
 import 'package:hiberusapp/screens/details/components/cart_counter.dart';
@@ -22,8 +23,7 @@ class Body extends StatelessWidget {
                             children: <Widget>[
                                 Container(
                                     margin: EdgeInsets.only(top: size.height * 0.4),
-                                    padding: EdgeInsets.only(top: size.height * 0.13, left: kDefaultPaddin, right: kDefaultPaddin),
-                                    height: 500,
+                                    padding: EdgeInsets.only(top: size.height * 0.10, left: kDefaultPaddin, right: kDefaultPaddin),
                                     decoration: BoxDecoration(
                                         color: Colors.white,
                                         borderRadius: BorderRadius.only(topLeft: Radius.circular(24), topRight:  Radius.circular(24))
@@ -35,7 +35,63 @@ class Body extends StatelessWidget {
                                                 padding: EdgeInsets.symmetric(vertical: kDefaultPaddin),
                                                 child: Text(product.description, style: TextStyle(height: 1.5)),
                                             ),
-                                            CartCounter()
+                                            Row(
+                                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                children: <Widget>[
+                                                    CartCounter(),
+                                                    Container(
+                                                        padding: EdgeInsets.all(8.0),
+                                                        height: 32,
+                                                        width: 32,
+                                                        decoration: BoxDecoration(
+                                                            color: Color(0xFFFF6464),
+                                                            shape: BoxShape.circle
+                                                        ),
+                                                        child: SvgPicture.asset("assets/icons/heart.svg"),
+                                                    )
+                                                ],
+                                            ),
+                                            Padding(
+                                                padding: EdgeInsets.symmetric(vertical: kDefaultPaddin),
+                                                child: Row(
+                                                    children: <Widget>[
+                                                        Container(
+                                                            margin: EdgeInsets.only(right: kDefaultPaddin),
+                                                            height: 50,
+                                                            width: 58,
+                                                            decoration: BoxDecoration(
+                                                                borderRadius: BorderRadius.circular(8.0),
+                                                                border: Border.all(
+                                                                    color: product.color
+                                                                ),
+                                                            ),
+                                                            child: IconButton(
+                                                                icon: SvgPicture.asset("assets/icons/add_to_cart.svg"),
+                                                                onPressed: () {},
+                                                            ),
+                                                        ),
+                                                        Expanded(
+                                                            child: SizedBox(
+                                                                height: 50,
+                                                                child: FlatButton(
+                                                                    shape: RoundedRectangleBorder(
+                                                                        borderRadius: BorderRadius.circular(18)
+                                                                    ),
+                                                                    color: product.color,
+                                                                    onPressed: () {},
+                                                                    child: Text("Buy Now".toUpperCase(),
+                                                                        style: TextStyle(
+                                                                            fontSize: 17,
+                                                                            fontWeight: FontWeight.bold,
+                                                                            color: Colors.white
+                                                                        )
+                                                                    ),
+                                                                ),
+                                                            )
+                                                        )
+                                                    ],
+                                                ),
+                                            )
                                         ],
                                     ),
                                 ),

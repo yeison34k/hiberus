@@ -21,7 +21,6 @@ class ProductTitleWithImage extends StatelessWidget {
                     Text(product.title,
                         style: Theme.of(context).textTheme.headline.copyWith(color: Colors.white, fontWeight: FontWeight.bold)
                     ),
-                    SizedBox(height: kDefaultPaddin,),
                     Row(
                         children: <Widget>[
                             RichText(
@@ -34,7 +33,10 @@ class ProductTitleWithImage extends StatelessWidget {
                             ),
                             SizedBox(width: kDefaultPaddin),
                             Expanded(
-                                child: Image.asset(product.image, fit: BoxFit.fill),
+                                child: Hero(
+                                    tag: "${product.id}",
+                                    child: Image.asset(product.image, fit: BoxFit.fill)
+                                ),
                             )
                         ],
                     ),
