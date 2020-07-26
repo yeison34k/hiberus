@@ -29,6 +29,10 @@ Development environment
 - Swagger
 - docker-compose
 
+## Definition
+
+![Alt text](https://github.com/yeison34k/hiberus/blob/master/steps/definition.png "api-gateway")
+
 ## postman
 import in your postman:
 
