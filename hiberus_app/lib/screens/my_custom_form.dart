@@ -353,7 +353,8 @@ class MyCustomFormState extends State<MyCustomForm> {
                                 ],
                             ), // this doesn't work for top and bottom
                         )
-                    ),SingleChildScrollView(
+                    ),
+                    SingleChildScrollView(
                         child: RaisedButton(
                             splashColor: Colors.white.withOpacity(0.25),
                             onPressed: () {
@@ -376,13 +377,47 @@ class MyCustomFormState extends State<MyCustomForm> {
         );
     }
 
+    Widget _entryField(String title, {bool isPassword = false}) {
+        return Container(
+            margin: EdgeInsets.symmetric(vertical: 10),
+            child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+                    Text(
+                        title,
+                        style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
+                    ),
+                    SizedBox(
+                        height: 10,
+                    ),
+                    TextField(
+                        obscureText: isPassword,
+                        decoration: InputDecoration(
+                            border: InputBorder.none,
+                            fillColor: Color(0xfff3f3f4),
+                            filled: true))
+                ],
+            ),
+        );
+    }
+
+
+    Widget _form() {
+        return Container(
+            child: SingleChildScrollView(
+                child: Column(
+                    children: <Widget>[
+                        _entryField("id")
+                    ],
+                ),
+            )
+
+        );
+    }
+
     @override
     Widget build(BuildContext context) {
         // Build a Form widget using the _formKey created above.
-        return new SafeArea(
-            top: true,
-            bottom: true,
-            child: form()
-        );
+        return _form();
     }
 }

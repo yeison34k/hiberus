@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:hiberusapp/screens/cart/cart.dart';
 import 'package:hiberusapp/screens/details/components/body.dart';
 import 'package:hiberusapp/models/Product.dart';
 
@@ -33,7 +34,9 @@ class DetailScreen extends StatelessWidget {
                 ),
                 IconButton(
                     icon: SvgPicture.asset("assets/icons/cart.svg", color: Colors.white),
-                    onPressed: () {},
+                    onPressed: () {
+                        Navigator.push(context, MaterialPageRoute(builder: (context) => CartScreen()));
+                    },
                 )
             ]
         );
