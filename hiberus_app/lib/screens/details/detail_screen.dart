@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:hiberusapp/screens/cart/cart.dart';
 import 'package:hiberusapp/screens/details/components/body.dart';
-import 'package:hiberusapp/models/Product.dart';
+import 'package:hiberusapp/models/product.dart';
 
 class DetailScreen extends StatelessWidget {
     final Product product;

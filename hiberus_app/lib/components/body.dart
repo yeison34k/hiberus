@@ -2,11 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:hiberusapp/components/categories.dart';
 import 'package:hiberusapp/components/item_card.dart';
 import 'package:hiberusapp/constants.dart';
-import 'package:hiberusapp/models/Product.dart';
+import 'package:hiberusapp/models/data.dart';
 import 'package:hiberusapp/screens/details/detail_screen.dart';
 
 class Body extends StatelessWidget {
-  @override
+    var data = AppData.products;
+
+    @override
   Widget build(BuildContext context) {
     return Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -32,10 +34,10 @@ class Body extends StatelessWidget {
                             crossAxisSpacing: kDefaultPaddin,
                             childAspectRatio: 0.75
                         ),
-                        itemCount: products.length,
+                        itemCount: data.length,
                         itemBuilder: (context, index)  =>
-                            ItemCard(product: products[index], press: () {
-                                Navigator.push(context, MaterialPageRoute(builder: (context) => DetailScreen(product: products[index])));
+                            ItemCard(product: data[index], press: () {
+                                Navigator.push(context, MaterialPageRoute(builder: (context) => DetailScreen(product: data[index])));
                             })
                     )
                 ),

@@ -1,15 +1,30 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:hiberusapp/constants.dart';
-import 'package:hiberusapp/models/Product.dart';
+import 'package:hiberusapp/models/product.dart';
+import 'package:hiberusapp/providers/product_provider.dart';
 import 'package:hiberusapp/screens/details/components/cart_counter.dart';
 import 'package:hiberusapp/screens/details/components/color_and_size.dart';
 import 'package:hiberusapp/screens/details/components/product_title_with_image.dart';
 
-class Body extends StatelessWidget {
+class Body extends StatefulWidget {
     final Product product;
 
-    const Body({Key key, this.product}) : super(key: key);
+    Body({Key key, this.product}) : super(key: key);
+
+  @override
+  _BodyState createState() => _BodyState();
+}
+
+class _BodyState extends State<Body> {
+    ProductProvider _productProvider = ProductProvider.get();
+    int _numItems = 0;
+
+    _update(int numItems) {
+        setState(() {
+            _numItems = numItems;
+        });
+    }
 
     @override
     Widget build(BuildContext context) {
@@ -30,15 +45,15 @@ class Body extends StatelessWidget {
                                     ),
                                     child: Column(
                                         children: <Widget>[
-                                            ColorAndSize(product: product),
+                                            ColorAndSize(product: widget.product),
                                             Padding(
                                                 padding: EdgeInsets.symmetric(vertical: kDefaultPaddin),
-                                                child: Text(product.description, style: TextStyle(height: 1.5)),
+                                                child: Text(widget.product.description, style: TextStyle(height: 1.5)),
                                             ),
                                             Row(
                                                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                                 children: <Widget>[
-                                                    CartCounter(),
+                                                    CartCounter(refresh: _update),
                                                     Container(
                                                         padding: EdgeInsets.all(8.0),
                                                         height: 32,
@@ -62,12 +77,18 @@ class Body extends StatelessWidget {
                                                             decoration: BoxDecoration(
                                                                 borderRadius: BorderRadius.circular(8.0),
                                                                 border: Border.all(
-                                                                    color: product.color
+                                                                    color: widget.product.color
                                                                 ),
                                                             ),
                                                             child: IconButton(
                                                                 icon: SvgPicture.asset("assets/icons/add_to_cart.svg"),
-                                                                onPressed: () {},
+                                                                onPressed: () {
+                                                                    setState(() {
+                                                                        widget.product.total = _numItems;
+                                                                        if(_numItems > 0)
+                                                                          _productProvider.insertProduct(widget.product);
+                                                                    });
+                                                                },
                                                             ),
                                                         ),
                                                         Expanded(
@@ -77,7 +98,7 @@ class Body extends StatelessWidget {
                                                                     shape: RoundedRectangleBorder(
                                                                         borderRadius: BorderRadius.circular(18)
                                                                     ),
-                                                                    color: product.color,
+                                                                    color: widget.product.color,
                                                                     onPressed: () {},
                                                                     child: Text("Buy Now".toUpperCase(),
                                                                         style: TextStyle(
@@ -95,7 +116,7 @@ class Body extends StatelessWidget {
                                         ],
                                     ),
                                 ),
-                                ProductTitleWithImage(product: product)
+                                ProductTitleWithImage(product: widget.product)
                             ],
                         ),
                     )
@@ -103,5 +124,4 @@ class Body extends StatelessWidget {
             ),
         );
     }
-
 }

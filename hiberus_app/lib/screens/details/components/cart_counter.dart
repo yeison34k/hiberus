@@ -2,6 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:hiberusapp/constants.dart';
 
 class CartCounter extends StatefulWidget {
+    final Function refresh;
+    CartCounter({this.refresh});
+
     @override
     _CartCounterState createState() => _CartCounterState();
 }
@@ -17,6 +20,7 @@ class _CartCounterState extends State<CartCounter> {
                     setState(() {
                         if(numItems> 0)
                             numItems--;
+                            widget.refresh(numItems);
                     });
                 }),
                 Padding(
@@ -28,6 +32,7 @@ class _CartCounterState extends State<CartCounter> {
                 buildOutlineButton(Icon(Icons.add) , () {
                     setState(() {
                         numItems++;
+                        widget.refresh(numItems);
                     });
                 })
             ],

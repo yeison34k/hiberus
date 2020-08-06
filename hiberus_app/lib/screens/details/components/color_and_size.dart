@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hiberusapp/constants.dart';
-import 'package:hiberusapp/models/Product.dart';
+import 'package:hiberusapp/models/product.dart';
 import 'package:hiberusapp/screens/details/components/color_dot.dart';
 
 class ColorAndSize extends StatelessWidget {
