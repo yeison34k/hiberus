@@ -1,16 +1,27 @@
 # hiberusapp
 
-A new Flutter application.
+# [APP](https://github.com/yeison34k/hiberus/tree/master/hiberus_app)
+ 
+The application is developed in [flutter](https://flutter.dev/), it is necessary to have the android sdk to test and the flutter package installed, the product data is dummy, but the application can connect with the server and make the purchase process
 
-## Getting Started
+### producs in stock
 
-This project is a starting point for a Flutter application.
+![Alt text](https://github.com/yeison34k/hiberus/blob/master/steps/catalogo.PNG "Products")
 
-A few resources to get you started if this is your first Flutter project:
+### Product details
 
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
+![Alt text](https://github.com/yeison34k/hiberus/blob/master/steps/product_details.PNG "Products details")
 
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+### Producs cart 
+
+![Alt text](https://github.com/yeison34k/hiberus/blob/master/steps/cart.PNG "Cart")
+
+### Payment order
+
+in this step is necesary deploy server api and use ip or route ZuulServer 
+
+![Alt text](https://github.com/yeison34k/hiberus/blob/master/steps/payment.PNG "Payment order")
+
+### Bill order (Develop)
+
+![Alt text](https://github.com/yeison34k/hiberus/blob/master/steps/bill.PNG "Order bill")
