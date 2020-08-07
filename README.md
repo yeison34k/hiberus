@@ -203,8 +203,9 @@ http://localhost:8761/
 
 ![Alt text](https://github.com/yeison34k/hiberus/blob/master/steps/eureka.PNG "Eureka server")
 
-
-# APP 
+# [APP](https://github.com/yeison34k/hiberus/tree/master/hiberus_app)
+ 
+The application is developed in flutter, it is necessary to have the android sdk to test and the flutter package installed, the product data is dummy, but the application can connect with the server and make the purchase process
 
 ### producs in stock
 
