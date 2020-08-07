@@ -45,10 +45,12 @@ class _CartScreenState extends State<CartScreen> {
                     Navigator.pop(context);
                 }),
             actions: <Widget>[
-                IconButton(
-                    icon: SvgPicture.asset("assets/icons/search.svg", color: kTextColor),
-                    onPressed: () {},
-                ),
+              IconButton(
+                icon: SvgPicture.asset("assets/icons/cart.svg", color: Colors.white),
+                onPressed: () {
+                  Navigator.push(context, MaterialPageRoute(builder: (context) => CartScreen()));
+                },
+              )
             ]
         );
     }

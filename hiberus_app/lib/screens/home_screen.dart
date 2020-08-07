@@ -24,10 +24,6 @@ class HomeScreen extends StatelessWidget {
               }),
           actions: <Widget>[
               IconButton(
-                  icon: SvgPicture.asset("assets/icons/search.svg", color: kTextColor),
-                  onPressed: () {},
-              ),
-              IconButton(
                   icon: SvgPicture.asset("assets/icons/cart.svg", color: kTextColor),
                   onPressed: () {
                       Navigator.push(context, MaterialPageRoute(builder: (context) => CartScreen()));

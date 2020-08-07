@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 
 class Product {
@@ -34,4 +36,20 @@ class Product {
         };
     }
 
+    static Map<String, dynamic> buidData(clientId, direction, phone, clientIdentity, clientName, paymentMethod, products) {
+      Map<String, dynamic> data = {
+        "order": {
+          "clientId": clientId,
+          "direction": direction,
+          "products": products
+        },
+        "bill" : {
+          "phone": phone,
+          "clientIdentity": clientIdentity,
+          "clientName": clientName,
+          "paymentMethod": paymentMethod
+        }
+      };
+      return data;
+    }
 }

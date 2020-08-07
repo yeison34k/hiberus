@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:hiberusapp/constants.dart';
+import 'package:hiberusapp/models/product.dart';
 import 'package:hiberusapp/providers/http.dart';
+import 'package:hiberusapp/providers/product_provider.dart';
+import 'package:hiberusapp/screens/bill/bill.dart';
 import 'package:hiberusapp/styles/light_color.dart';
 import 'package:hiberusapp/styles/theme.dart';
 import 'package:hiberusapp/widget/title_text.dart';
@@ -17,10 +20,43 @@ class PaymentPage extends StatefulWidget {
 }
 
 class _PaymentPageState extends State<PaymentPage> {
-
+    String paymentMethodValue = "Credit card";
+    List<Product> products;
     HttpProvider httpProvider = HttpProvider.get();
-    
-    Widget _entryField(String title, {bool isPassword = false}) {
+    ProductProvider productProvider = ProductProvider.get();
+
+    final ipController = TextEditingController();
+    final clientIdController = TextEditingController();
+    final directionController = TextEditingController();
+    final phoneController = TextEditingController();
+    final identityController = TextEditingController();
+    final nameController = TextEditingController();
+    final payMethodController = TextEditingController();
+
+    loadProducts() async {
+      var response = await productProvider.fechPorductsCart();
+      products = response;
+    }
+
+    @override
+    void initState() {
+      loadProducts();
+    }
+
+    @override
+    void dispose() {
+      // Limpia el controlador cuando el Widget se descarte
+      ipController.dispose();
+      clientIdController.dispose();
+      directionController.dispose();
+      phoneController.dispose();
+      identityController.dispose();
+      nameController.dispose();
+      payMethodController.dispose();
+      super.dispose();
+    }
+
+    Widget _entryField(String title, controller) {
         return Container(
             margin: EdgeInsets.symmetric(vertical: 10),
             child: Column(
@@ -34,20 +70,81 @@ class _PaymentPageState extends State<PaymentPage> {
                         height: 10,
                     ),
                     TextField(
-                        obscureText: isPassword,
-                        decoration: InputDecoration(
-                            border: InputBorder.none,
-                            fillColor: Color(0xfff3f3f4),
-                            filled: true))
+                      controller: controller,
+                      decoration: InputDecoration(
+                          border: InputBorder.none,
+                          fillColor: Color(0xfff3f3f4),
+                          filled: true))
                 ],
             ),
         );
     }
 
+    Widget _entryFieldDrop(String title, controller) {
+      return Container(
+        margin: EdgeInsets.symmetric(vertical: 10),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: <Widget>[
+            Text(
+              title,
+              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
+            ),
+            SizedBox(
+              height: 5,
+            ),
+            new DropdownButtonFormField<String>(
+              value: paymentMethodValue,
+              items: <String>['Credit card', 'Cash payment'].map((String value) {
+                return new DropdownMenuItem<String>(
+                  value: value,
+                  child: new Text(value),
+                );
+              }).toList(),
+              onChanged: (String newValue) {
+                setState(() {
+                  paymentMethodValue = newValue;
+                });
+              },
+            ),
+          ],
+        ),
+      );
+    }
+
+    mappingProducts() async {
+      List<Map<String, dynamic>> productsResponse = new List();
+
+      if(products != null)
+        products.forEach((x) {
+          if(x!= null) {
+            Map<String, dynamic> row = {
+              "id": x.id,
+              "quantity": x.total,
+              "cost": x.total * x.price
+          };
+          productsResponse.add(row);
+        }
+      });
+
+      return productsResponse;
+    }
+
+    saveOrder() async {
+      var producs = await mappingProducts();
+      var dataRequest = Product.buidData(clientIdController.text,
+        directionController.text, phoneController.text,
+        identityController.text, nameController.text,
+        paymentMethodValue, producs);
+
+      var data = await httpProvider.guardar(ipController.text, dataRequest);
+      Navigator.push(context, MaterialPageRoute(builder: (context) => BillPage(data: data)));
+    }
+
     Widget _submitButton(BuildContext context) {
         return FlatButton(
             onPressed: () {
-                Navigator.push(context, MaterialPageRoute(builder: (context) => PaymentPage()));
+              saveOrder();
             },
             shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
             color: LightColor.orange,
@@ -66,12 +163,13 @@ class _PaymentPageState extends State<PaymentPage> {
     Widget _emailPasswordWidget() {
         return Column(
             children: <Widget>[
-                _entryField("clientId"),
-                _entryField("direction"),
-                _entryField("phone"),
-                _entryField("clientIdentity"),
-                _entryField("clientName"),
-                _entryField("paymentMethod"),
+              _entryField("Ip server", ipController),
+              _entryField("Client id", clientIdController),
+              _entryField("Direction", directionController),
+              _entryField("Phone", phoneController),
+              _entryField("Client identity", identityController),
+              _entryField("Client name", nameController),
+              _entryFieldDrop("Payment method", payMethodController),
             ],
         );
     }
@@ -102,7 +200,8 @@ class _PaymentPageState extends State<PaymentPage> {
                         ),
                     ],
                 ),
-            ));
+            )
+        );
     }
 
     AppBar _appBar(BuildContext context) {
@@ -114,12 +213,6 @@ class _PaymentPageState extends State<PaymentPage> {
                 onPressed: () {
                     Navigator.pop(context);
                 }),
-            actions: <Widget>[
-                IconButton(
-                    icon: SvgPicture.asset("assets/icons/search.svg", color: kTextColor),
-                    onPressed: () {},
-                ),
-            ]
         );
     }
 }

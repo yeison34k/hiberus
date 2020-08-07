@@ -29,10 +29,6 @@ class DetailScreen extends StatelessWidget {
                 }),
             actions: <Widget>[
                 IconButton(
-                    icon: SvgPicture.asset("assets/icons/search.svg", color: Colors.white),
-                    onPressed: () {},
-                ),
-                IconButton(
                     icon: SvgPicture.asset("assets/icons/cart.svg", color: Colors.white),
                     onPressed: () {
                         Navigator.push(context, MaterialPageRoute(builder: (context) => CartScreen()));

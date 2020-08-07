@@ -34,16 +34,13 @@ class HttpProvider {
     }
   };
 
-  guardar() async {
+  guardar(ip, request) async {
     var headers = {
       'Content-Type': 'application/json'
     };
-    var url = 'http://192.168.1.15:8989/api/payment';
-    var response = await post(url, body:  json.encode(example), headers: headers);
+    var url = 'http://'+ip+':8989/api/payment';
+    var response = await post(url, body:  json.encode(request), headers: headers);
     var data = jsonDecode(response.body);
-    print(data);
+    return data;
   }
-
-
-
 }
