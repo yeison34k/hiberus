@@ -1,6 +1,4 @@
 # hiberusapp
-
-# [APP](https://github.com/yeison34k/hiberus/tree/master/hiberus_app)
  
 The application is developed in [flutter](https://flutter.dev/), it is necessary to have the android sdk to test and the flutter package installed, the product data is dummy, but the application can connect with the server and make the purchase process
 
