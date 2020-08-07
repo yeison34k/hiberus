@@ -204,4 +204,26 @@ http://localhost:8761/
 ![Alt text](https://github.com/yeison34k/hiberus/blob/master/steps/eureka.PNG "Eureka server")
 
 
+# APP 
 
+### producs in stock
+
+![Alt text](https://github.com/yeison34k/hiberus/blob/master/steps/catalogo.PNG "Products")
+
+### Product details
+
+![Alt text](https://github.com/yeison34k/hiberus/blob/master/steps/product_details.PNG "Products details")
+
+### Producs cart 
+
+![Alt text](https://github.com/yeison34k/hiberus/blob/master/steps/cart.PNG "Cart")
+
+### Payment order
+
+in this step is necesary deploy server api and use ip or route ZuulServer 
+
+![Alt text](https://github.com/yeison34k/hiberus/blob/master/steps/payment.PNG "Payment order")
+
+### Bill order (Develop)
+
+![Alt text](https://github.com/yeison34k/hiberus/blob/master/steps/bill.PNG "Order bill")
