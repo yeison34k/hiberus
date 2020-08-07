@@ -2,6 +2,8 @@
  
 The application is developed in [flutter](https://flutter.dev/), it is necessary to have the android sdk to test and the flutter package installed, the product data is dummy, but the application can connect with the server and make the purchase process
 
+### Download [Video](https://github.com/yeison34k/hiberus/blob/master/steps/AppVideo.mp4)
+
 ### producs in stock
 
 ![Alt text](https://github.com/yeison34k/hiberus/blob/master/steps/catalogo.PNG "Products")
