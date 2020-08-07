@@ -40,6 +40,7 @@ class _PaymentPageState extends State<PaymentPage> {
 
     @override
     void initState() {
+      ipController.text = "192.168.1.2"; //default value
       loadProducts();
     }
 
